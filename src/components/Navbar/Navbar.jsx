@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router";
+import "../../../src/index.css";
 
 const Navbar = () => {
   const lincks = (
