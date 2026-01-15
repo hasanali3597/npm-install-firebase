@@ -1,28 +1,48 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React from "react";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useContext } from "react";
 import { NavLink } from "react-router";
-import { auth } from "../../firebase/firebase.init";
+import { AuthContext } from "../../context/AuthContext/authContext";
+// import { auth } from "../../firebase/firebase.init";
 
 const Signup = () => {
+  const { createUser } = useContext(AuthContext);
+  console.log("in th signup", createUser);
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-
-    console.log(name, email, password);
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        e.target.reset();
-        console.log("User created successfully", user);
-      })
-      .catch((error) => {
-        console.error("Error creating user", error.code, error.message);
-      });
+    createUser(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      e.target.reset();
+      alert("User created successfully", );
+      console.log("User created successfully", user);
+    })
+    .catch((error) => {
+      console.error("Error creating user", error.code, error.message);
+    });
+    
   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const name = e.target.name.value;
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+
+  //   console.log(name, email, password);
+
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       e.target.reset();
+  //       console.log("User created successfully", user);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error creating user", error.code, error.message);
+  //     });
+  // };
 
   return (
     <div className="hero bg-base-200 min-h-screen">
